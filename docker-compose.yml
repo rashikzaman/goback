@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  app:
+    image: goback_image
+    container_name: goback
+    build:
+      dockerfile: Dockerfile
+      context: .
+    network_mode: "host"
+    volumes:
+      - .:/app
