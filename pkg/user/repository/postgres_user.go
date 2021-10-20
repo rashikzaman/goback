@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"locally/goback/pkg/common/model"
 	"locally/goback/pkg/user/domain"
 
 	"gorm.io/gorm"
@@ -15,10 +16,15 @@ func NewPostgresUserRepository(Conn *gorm.DB) domain.UserRepository {
 	return &PostgresUserRepository{Conn}
 }
 
-func (m *PostgresUserRepository) Fetch(ctx context.Context) []domain.User {
+func (m *PostgresUserRepository) Fetch(ctx context.Context) model.Collection {
 	var users []domain.User
-	m.Conn.Find(&users)
-	return users
+	result := m.Conn.Find(&users)
+	collection := model.Collection{
+		Items:      users,
+		PageNumber: 1,
+		PageSize:   result.RowsAffected,
+	}
+	return collection
 }
 
 func (m *PostgresUserRepository) FetchById(ctx context.Context) {

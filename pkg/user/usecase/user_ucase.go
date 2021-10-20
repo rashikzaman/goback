@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"locally/goback/pkg/common/model"
 	"locally/goback/pkg/user/domain"
 )
 
@@ -15,9 +16,9 @@ func NewUserUseCase(a domain.UserRepository) domain.UserUseCase {
 	}
 }
 
-func (m *userUserCase) Fetch(ctx context.Context) []domain.User {
-	users := m.UserRepository.Fetch(ctx)
-	return users
+func (m *userUserCase) Fetch(ctx context.Context) model.Collection {
+	collection := m.UserRepository.Fetch(ctx)
+	return collection
 }
 
 func (m *userUserCase) FetchById(ctx context.Context) {

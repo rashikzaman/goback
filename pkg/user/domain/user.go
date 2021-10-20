@@ -21,7 +21,7 @@ type User struct {
 }
 
 type UserRepository interface {
-	Fetch(ctx context.Context) []User
+	Fetch(ctx context.Context) model.Collection
 	FetchById(ctx context.Context)
 	FetchByEmail(ctx context.Context)
 	Store(ctx context.Context)
@@ -30,7 +30,7 @@ type UserRepository interface {
 }
 
 type UserUseCase interface {
-	Fetch(ctx context.Context) []User
+	Fetch(ctx context.Context) model.Collection
 	FetchById(ctx context.Context)
 	FetchByEmail(ctx context.Context)
 	Store(ctx context.Context)
