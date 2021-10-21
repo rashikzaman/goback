@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"locally/goback/pkg/common/model"
-	"locally/goback/pkg/user/domain"
+	"locally/goback/pkg/domain"
+	"locally/goback/pkg/model"
 
 	"gorm.io/gorm"
 )

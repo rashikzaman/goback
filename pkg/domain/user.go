@@ -2,7 +2,7 @@ package domain
 
 import (
 	"context"
-	"locally/goback/pkg/common/model"
+	"locally/goback/pkg/model"
 	"time"
 )
 

@@ -2,10 +2,10 @@ package route
 
 import (
 	"locally/goback/db"
-	"locally/goback/pkg/common/middleware"
-	"locally/goback/pkg/user/http"
-	"locally/goback/pkg/user/repository"
-	"locally/goback/pkg/user/usecase"
+	"locally/goback/pkg/http"
+	"locally/goback/pkg/http/middleware"
+	"locally/goback/pkg/repository"
+	"locally/goback/pkg/usecase"
 
 	"github.com/gin-gonic/gin"
 )

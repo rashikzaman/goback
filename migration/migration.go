@@ -2,9 +2,13 @@ package migration
 
 import (
 	"locally/goback/db"
-	"locally/goback/pkg/user/domain"
+	"locally/goback/pkg/domain"
 )
 
 func Migrate() {
-	db.GetDb().AutoMigrate(domain.User{})
+	db.GetDb().AutoMigrate(
+		domain.User{},
+		//domain.BusinessType{},
+		//domain.Business{},
+	)
 }

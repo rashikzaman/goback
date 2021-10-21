@@ -1,7 +1,7 @@
 package http
 
 import (
-	"locally/goback/pkg/user/domain"
+	"locally/goback/pkg/domain"
 
 	"github.com/gin-gonic/gin"
 )
