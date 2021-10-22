@@ -2,7 +2,7 @@ package main
 
 import (
 	"locally/goback/db"
-	"locally/goback/migration"
+	"locally/goback/db/migration"
 	"locally/goback/route"
 )
 

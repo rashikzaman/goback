@@ -2,10 +2,10 @@ package route
 
 import (
 	"locally/goback/db"
-	"locally/goback/pkg/common/middleware"
-	"locally/goback/pkg/user/http"
-	"locally/goback/pkg/user/repository"
-	"locally/goback/pkg/user/usecase"
+	"locally/goback/pkg/http"
+	"locally/goback/pkg/http/middleware"
+	"locally/goback/pkg/repository"
+	"locally/goback/pkg/usecase"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,8 +22,16 @@ func InitRouter() {
 				userRepository := repository.NewPostgresUserRepository(db.GetDb())
 				userUseCase := usecase.NewUserUseCase(userRepository)
 				handler := http.NewUserHandler(userUseCase)
-
 				userGroup.GET("/", handler.FetchUsers())
+			}
+
+			businessGroup := v1Group.Group("/businesses")
+			{
+				businessRepository := repository.NewPostgresBusinessRepository(db.GetDb())
+				businessUseCase := usecase.NewBusinessUseCase(businessRepository)
+				handler := http.NewBusinessHandler(businessUseCase)
+				businessGroup.GET("/", handler.FetchBusinesses())
+				businessGroup.POST("/", handler.CreateBusiness())
 			}
 		}
 	}

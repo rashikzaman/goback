@@ -1,4 +1,4 @@
-package response
+package model
 
 // ResponseError represent the reseponse error struct
 type ResponseError struct {

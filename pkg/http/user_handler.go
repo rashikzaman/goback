@@ -1,7 +1,9 @@
 package http
 
 import (
-	"locally/goback/pkg/user/domain"
+	"locally/goback/pkg/domain"
+
+	"locally/goback/pkg/error"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +21,10 @@ func NewUserHandler(us domain.UserUseCase) *UserHandler {
 
 func (a *UserHandler) FetchUsers() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		users := a.UserUseCase.Fetch(c)
+		users, err := a.UserUseCase.FetchUsers(c)
+		if err != nil {
+			error.ServerErrorResponse(c, err)
+		}
 		c.JSON(200, users)
 	}
 }

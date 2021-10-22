@@ -2,7 +2,7 @@ package domain
 
 import (
 	"context"
-	"locally/goback/pkg/common/model"
+	"locally/goback/pkg/model"
 	"time"
 )
 
@@ -21,19 +21,19 @@ type User struct {
 }
 
 type UserRepository interface {
-	Fetch(ctx context.Context) model.Collection
-	FetchById(ctx context.Context)
-	FetchByEmail(ctx context.Context)
-	Store(ctx context.Context)
-	Update(ctx context.Context)
-	Delete(ctx context.Context)
+	FetchUsers(ctx context.Context) ([]User, error)
+	FetchUserById(ctx context.Context)
+	FetchUserByEmail(ctx context.Context)
+	StoreUser(ctx context.Context)
+	UpdateUser(ctx context.Context)
+	DeleteUser(ctx context.Context)
 }
 
 type UserUseCase interface {
-	Fetch(ctx context.Context) model.Collection
-	FetchById(ctx context.Context)
-	FetchByEmail(ctx context.Context)
-	Store(ctx context.Context)
-	Update(ctx context.Context)
-	Delete(ctx context.Context)
+	FetchUsers(ctx context.Context) (*model.Collection, error)
+	FetchUserById(ctx context.Context)
+	FetchUserByEmail(ctx context.Context)
+	StoreUser(ctx context.Context)
+	UpdateUser(ctx context.Context)
+	DeleteUser(ctx context.Context)
 }
