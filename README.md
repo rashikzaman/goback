@@ -11,10 +11,10 @@ GOBACK is the backed of Locally written in Golang.
 
 (Without Docker)
 
-1. RUN below command to install necessary packages:
+1. RUN below command to download necessary packages:
 
 ```go
-$ go install
+$ go mod download
 ```
 
 2. RUN below command to run the project:
