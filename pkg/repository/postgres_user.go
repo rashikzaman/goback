@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"locally/goback/pkg/domain"
-	"locally/goback/pkg/model"
 
 	"gorm.io/gorm"
 )
@@ -16,33 +15,28 @@ func NewPostgresUserRepository(Conn *gorm.DB) domain.UserRepository {
 	return &PostgresUserRepository{Conn}
 }
 
-func (m *PostgresUserRepository) Fetch(ctx context.Context) model.Collection {
+func (m *PostgresUserRepository) FetchUsers(ctx context.Context) ([]domain.User, error) {
 	var users []domain.User
 	result := m.Conn.Find(&users)
-	collection := model.Collection{
-		Items:      users,
-		PageNumber: 1,
-		PageSize:   result.RowsAffected,
-	}
-	return collection
+	return users, result.Error
 }
 
-func (m *PostgresUserRepository) FetchById(ctx context.Context) {
+func (m *PostgresUserRepository) FetchUserById(ctx context.Context) {
 
 }
 
-func (m *PostgresUserRepository) FetchByEmail(ctx context.Context) {
+func (m *PostgresUserRepository) FetchUserByEmail(ctx context.Context) {
 
 }
 
-func (m *PostgresUserRepository) Store(ctx context.Context) {
+func (m *PostgresUserRepository) StoreUser(ctx context.Context) {
 
 }
 
-func (m *PostgresUserRepository) Update(ctx context.Context) {
+func (m *PostgresUserRepository) UpdateUser(ctx context.Context) {
 
 }
 
-func (m *PostgresUserRepository) Delete(ctx context.Context) {
+func (m *PostgresUserRepository) DeleteUser(ctx context.Context) {
 
 }

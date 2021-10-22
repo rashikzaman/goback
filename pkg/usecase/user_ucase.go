@@ -16,27 +16,37 @@ func NewUserUseCase(a domain.UserRepository) domain.UserUseCase {
 	}
 }
 
-func (m *userUserCase) Fetch(ctx context.Context) model.Collection {
-	collection := m.UserRepository.Fetch(ctx)
-	return collection
+func (m *userUserCase) FetchUsers(ctx context.Context) (*model.Collection, error) {
+	result, err := m.UserRepository.FetchUsers(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	collection := model.Collection{
+		Items:      result,
+		PageNumber: 1,
+		PageSize:   len(result),
+	}
+	return &collection, nil
 }
 
-func (m *userUserCase) FetchById(ctx context.Context) {
+func (m *userUserCase) FetchUserById(ctx context.Context) {
 
 }
 
-func (m *userUserCase) FetchByEmail(ctx context.Context) {
+func (m *userUserCase) FetchUserByEmail(ctx context.Context) {
 
 }
 
-func (m *userUserCase) Store(ctx context.Context) {
+func (m *userUserCase) StoreUser(ctx context.Context) {
 
 }
 
-func (m *userUserCase) Update(ctx context.Context) {
+func (m *userUserCase) UpdateUser(ctx context.Context) {
 
 }
 
-func (m *userUserCase) Delete(ctx context.Context) {
+func (m *userUserCase) DeleteUser(ctx context.Context) {
 
 }

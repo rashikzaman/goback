@@ -22,8 +22,16 @@ func InitRouter() {
 				userRepository := repository.NewPostgresUserRepository(db.GetDb())
 				userUseCase := usecase.NewUserUseCase(userRepository)
 				handler := http.NewUserHandler(userUseCase)
-
 				userGroup.GET("/", handler.FetchUsers())
+			}
+
+			businessGroup := v1Group.Group("/businesses")
+			{
+				businessRepository := repository.NewPostgresBusinessRepository(db.GetDb())
+				businessUseCase := usecase.NewBusinessUseCase(businessRepository)
+				handler := http.NewBusinessHandler(businessUseCase)
+				businessGroup.GET("/", handler.FetchBusinesses())
+				businessGroup.POST("/", handler.CreateBusiness())
 			}
 		}
 	}

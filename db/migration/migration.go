@@ -8,7 +8,7 @@ import (
 func Migrate() {
 	db.GetDb().AutoMigrate(
 		domain.User{},
-		//domain.BusinessType{},
-		//domain.Business{},
+		domain.BusinessType{},
+		domain.Business{},
 	)
 }
