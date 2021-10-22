@@ -1,8 +1,8 @@
 package migration
 
 import (
+	"locally/goback/app/domain"
 	"locally/goback/db"
-	"locally/goback/pkg/domain"
 )
 
 func Migrate() {
