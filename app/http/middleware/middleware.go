@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"fmt"
 	"locally/goback/config"
 	"net/http"
 	"strings"
@@ -17,7 +18,7 @@ func AdminMiddleware() gin.HandlerFunc {
  		idToken := strings.TrimSpace(strings.Replace(authorizationToken, "Bearer", "", 1))
 
 		if idToken == "" {
-  			c.JSON(http.StatusBadRequest, gin.H{"error": "Id token not available"})
+  			c.JSON(http.StatusUnauthorized, gin.H{"error": "Id token not available"})
   			c.Abort()
   			return
 		}
@@ -25,10 +26,18 @@ func AdminMiddleware() gin.HandlerFunc {
 		token, err := firebaseAuth.VerifyIDToken(context.Background(), idToken)
 		  
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid token"})
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid token"})
 			c.Abort()
 			return
 		}
+		// fmt.Print(token.Audience)
+		// fmt.Print(token.Claims)
+		// fmt.Print(token.Firebase)
+		// fmt.Print(token.Issuer)
+		// fmt.Print(token.Subject)
+		fmt.Print(token.Firebase.Identities["phone"])
+		// fmt.Print(token.Firebase.SignInProvider)
+		// fmt.Print(token.Firebase.Tenant)
 		c.Set("token", token.UID)
 		c.Next()
 	}
