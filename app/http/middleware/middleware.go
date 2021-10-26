@@ -2,8 +2,10 @@ package middleware
 
 import (
 	"context"
-	"fmt"
+
+	"locally/goback/app/domain"
 	"locally/goback/config"
+	"locally/goback/db"
 	"net/http"
 	"strings"
 
@@ -30,14 +32,17 @@ func AdminMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		// fmt.Print(token.Audience)
-		// fmt.Print(token.Claims)
-		// fmt.Print(token.Firebase)
-		// fmt.Print(token.Issuer)
-		// fmt.Print(token.Subject)
-		fmt.Print(token.Firebase.Identities["phone"])
-		// fmt.Print(token.Firebase.SignInProvider)
-		// fmt.Print(token.Firebase.Tenant)
+			
+		phoneNumber := token.Claims["phone_number"].(string)
+		var users []domain.User
+		usersWithThisPhoneNumber := db.GetDb().Where("phone_number = ?", phoneNumber).Find(&users)
+
+		if(usersWithThisPhoneNumber.RowsAffected <= 0) {
+			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+			c.Abort()
+			return
+		}
+		
 		c.Set("token", token.UID)
 		c.Next()
 	}
