@@ -4,7 +4,7 @@ GOBACK is the backed of Locally written in Golang.
 
 ## PREREQUISITE
 
-1. Install POSTGRESQL, insert dbname, username, password and host in the .env file.(copy .env.example) 
+1. Install MYSQL, insert dbname, username, password and host in the .env file.(copy .env.example) 
 2. Docker
 
 ## INSTALLATION

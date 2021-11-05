@@ -10,10 +10,10 @@ import (
 
 type Business struct {
 	model.CommonModelFields
-	BusinessId     uuid.UUID `gorm:"type:uuid;unique_index"`
+	BusinessId     uuid.UUID `gorm:"type:char(36);unique_index;not null"`
 	Name           string    `json:"name" gorm:"not null"`
 	OwnerName      string    `json:"owner_name" gorm:"not null"`
-	BusinessTypeId uint      `gorm:"foreignKey:BusinessTypeId"`
+	BusinessTypeId uint      `gorm:"foreignKey:BusinessTypeId;not null"`
 	BusinessType   BusinessType
 	Street         string `json:"street"`
 	Area           string `json:"area"`

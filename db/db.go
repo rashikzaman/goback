@@ -1,9 +1,10 @@
 package db
 
 import (
+	"fmt"
 	"locally/goback/config"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	log "github.com/sirupsen/logrus"
@@ -13,10 +14,14 @@ var db *gorm.DB
 
 func GetDb() *gorm.DB {
 	if db == nil {
-		dsn := "host=" + config.GetConfig().GetDatabaseConfig().Host + " user=" + config.GetConfig().GetDatabaseConfig().Username +
-			" password=" + config.GetConfig().GetDatabaseConfig().Password + " dbname=" + config.GetConfig().GetDatabaseConfig().DatabaseName +
-			" port=" + config.GetConfig().GetDatabaseConfig().Port + " sslmode=disable TimeZone=Asia/Dhaka"
-		tempDb, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		databaseConfig := config.GetConfig().GetDatabaseConfig()
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+			databaseConfig.Username,
+			databaseConfig.Password,
+			databaseConfig.Host,
+			databaseConfig.Port,
+			databaseConfig.DatabaseName)
+		tempDb, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {
 			log.Error(err)
 			return nil

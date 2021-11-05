@@ -59,10 +59,10 @@ func (c Config) GetEnvVariable(key string) string {
 
 func (c Config) GetDatabaseConfig() DatabaseConfig {
 	return DatabaseConfig{
-		DatabaseName: c.getEnv("POSTGRES_DB_NAME", "locally"),
-		Host:         c.getEnv("POSTGRES_HOST", "localhost"),
-		Port:         c.getEnv("POSTGRES_PORT", "5432"),
-		Username:     c.getEnv("POSTGRES_DB_USERNAME", "locally"),
-		Password:     c.getEnv("POSTGRES_DB_PASSWORD", "locally"),
+		DatabaseName: c.getEnv("MYSQL_DB_NAME", "locally"),
+		Host:         c.getEnv("MYSQL_HOST", "localhost"),
+		Port:         c.getEnv("MYSQL_PORT", "5432"),
+		Username:     c.getEnv("MYSQL_DB_USERNAME", "locally"),
+		Password:     c.getEnv("MYSQL_DB_PASSWORD", "locally"),
 	}
 }
