@@ -23,6 +23,7 @@ func InitRouter() {
 				userUseCase := usecase.NewUserUseCase(userRepository)
 				handler := http.NewUserHandler(userUseCase)
 				userGroup.GET("/", handler.FetchUsers())
+				userGroup.POST("/", handler.CreateUser())
 			}
 
 			businessGroup := v1Group.Group("/businesses")

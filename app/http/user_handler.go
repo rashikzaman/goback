@@ -2,6 +2,7 @@ package http
 
 import (
 	"locally/goback/app/domain"
+	"net/http"
 
 	"locally/goback/app/error"
 
@@ -25,6 +26,12 @@ func (a *UserHandler) FetchUsers() gin.HandlerFunc {
 		if err != nil {
 			error.ServerErrorResponse(c, err)
 		}
-		c.JSON(200, users)
+		c.JSON(http.StatusOK, users)
+	}
+}
+
+func (a *UserHandler) CreateUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.JSON(http.StatusCreated, gin.H{"hello": "world"})
 	}
 }
