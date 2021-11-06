@@ -1,6 +1,7 @@
 package route
 
 import (
+	"fmt"
 	"locally/goback/app/http"
 	"locally/goback/app/http/middleware"
 	"locally/goback/app/repository"
@@ -11,7 +12,17 @@ import (
 )
 
 func InitRouter() {
-	r := gin.Default()
+
+	r := gin.New()
+	r.Use(gin.Logger())
+
+	// Recovery middleware recovers from any panics and writes a 500 if there was one.
+	r.Use(gin.CustomRecovery(func(c *gin.Context, recovered interface{}) {
+		if err, ok := recovered.(string); ok {
+			c.String(500, fmt.Sprintf("error: %s", err))
+		}
+		c.AbortWithStatus(500)
+	}))
 
 	apiGroup := r.Group("/api")
 	{
@@ -19,10 +30,11 @@ func InitRouter() {
 		{
 			userGroup := v1Group.Group("/users", middleware.AdminMiddleware())
 			{
-				userRepository := repository.NewPostgresUserRepository(db.GetDb())
+				userRepository := repository.NewMysqlUserRepository(db.GetDb())
 				userUseCase := usecase.NewUserUseCase(userRepository)
 				handler := http.NewUserHandler(userUseCase)
 				userGroup.GET("/", handler.FetchUsers())
+				userGroup.POST("/", handler.CreateUser())
 			}
 
 			businessGroup := v1Group.Group("/businesses")

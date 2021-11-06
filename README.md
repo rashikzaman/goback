@@ -13,13 +13,19 @@ GOBACK is the backed of Locally written in Golang.
 
 1. RUN below command to download necessary packages:
 
-```go
+```
 $ go mod download
 ```
 
 2. RUN below command to run the project:
-```go
+```
 $ make run
+```
+
+3. To RUN with hot reload support, RUN:
+```
+$ go get github.com/codegangsta/gin
+$ make run-h
 ```
 
 (With Docker)
