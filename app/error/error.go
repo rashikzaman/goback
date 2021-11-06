@@ -46,6 +46,6 @@ func CreateJsonFormError(c *gin.Context, err error) {
 }
 
 func ServerErrorResponse(c *gin.Context, err error) {
-	c.AbortWithStatusJSON(500, gin.H{"error": err.Error()})
+	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	c.Abort()
 }
