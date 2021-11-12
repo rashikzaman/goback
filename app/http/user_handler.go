@@ -14,9 +14,9 @@ type UserHandler struct {
 }
 
 type UserBasicForm struct {
-	Name        string `form:"name" json:"name" binding:"required,max=100"`
-	Email       string `form:"email" json:"email" binding:"required,max=100,email"`
-	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,max=100"`
+	Name        string `form:"name" json:"name" binding:"required,max=255"`
+	Email       string `form:"email" json:"email" binding:"required,max=255,email"`
+	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,max=255"`
 	Gender      string `form:"gender" json:"gender" binding:"max=20"`
 	Dob         string `form:"dob" json:"dob" binding:"max=20"`
 	Photo       string `form:"photo" json:"photo"`
