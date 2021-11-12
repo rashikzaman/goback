@@ -53,7 +53,7 @@ func (a *UserHandler) CreateUser() gin.HandlerFunc {
 		if err := c.ShouldBindJSON(&json); err != nil {
 			error.CreateJsonFormError(c, err)
 		} else {
-			user := getUser(json)
+			user := convertAdminUserToDomainUser(json)
 			user, err := a.UserUseCase.StoreUser(c, user)
 			if err != nil {
 				error.ServerErrorResponse(c, err)
@@ -64,7 +64,7 @@ func (a *UserHandler) CreateUser() gin.HandlerFunc {
 	}
 }
 
-func getUser(data UserAdminForm) *domain.User {
+func convertAdminUserToDomainUser(data UserAdminForm) *domain.User {
 	user := &domain.User{
 		Name:         &data.Name,
 		Email:        &data.Email,

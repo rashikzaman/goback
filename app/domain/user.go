@@ -7,9 +7,9 @@ import (
 
 type User struct {
 	model.CommonModelFields
-	Name         *string `json:"name" gorm:"type:varchar(100);not null"`
-	Email        *string `json:"email" gorm:"unique;type:varchar(100);not null"`
-	PhoneNumber  *string `json:"phone_number" gorm:"type:varchar(100);unique;not null"`
+	Name         *string `json:"name" gorm:"type:varchar(255);not null"`
+	Email        *string `json:"email" gorm:"unique;type:varchar(255);not null"`
+	PhoneNumber  *string `json:"phone_number" gorm:"type:varchar(255);unique;not null"`
 	Gender       string  `json:"gender"`
 	Dob          string  `json:"dob"`
 	Photo        string  `json:"photo"`

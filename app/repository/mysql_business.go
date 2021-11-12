@@ -33,8 +33,9 @@ func (m *PostgresBusinessRepository) FetchBusinessByEmail(ctx context.Context) {
 
 }
 
-func (m *PostgresBusinessRepository) StoreBusiness(ctx context.Context) {
-
+func (m *PostgresBusinessRepository) StoreBusiness(ctx context.Context, data *domain.Business) (*domain.Business, error) {
+	result := m.Conn.Create(data)
+	return data, result.Error
 }
 
 func (m *PostgresBusinessRepository) UpdateBusiness(ctx context.Context) {
