@@ -37,8 +37,16 @@ func (m *businessUserCase) FetchByBusinessId(ctx context.Context) {
 
 }
 
-func (m *businessUserCase) StoreBusiness(ctx context.Context) {
+func (m *businessUserCase) StoreBusiness(ctx context.Context, data *domain.Business) (*domain.Business, error) {
+	if data.Latitude != 0 && data.Longitude != 0 {
+		data.Location = domain.Location{
+			Latitude:  data.Latitude,
+			Longitude: data.Longitude,
+		}
+	}
 
+	data, err := m.BusinessRepository.StoreBusiness(ctx, data)
+	return data, err
 }
 
 func (m *businessUserCase) UpdateBusiness(ctx context.Context) {

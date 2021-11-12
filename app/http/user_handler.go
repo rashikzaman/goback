@@ -14,9 +14,9 @@ type UserHandler struct {
 }
 
 type UserBasicForm struct {
-	Name        string `form:"name" json:"name" binding:"required,max=100"`
-	Email       string `form:"email" json:"email" binding:"required,max=100,email"`
-	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,max=100"`
+	Name        string `form:"name" json:"name" binding:"required,max=255"`
+	Email       string `form:"email" json:"email" binding:"required,max=255,email"`
+	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,max=255"`
 	Gender      string `form:"gender" json:"gender" binding:"max=20"`
 	Dob         string `form:"dob" json:"dob" binding:"max=20"`
 	Photo       string `form:"photo" json:"photo"`
@@ -53,7 +53,7 @@ func (a *UserHandler) CreateUser() gin.HandlerFunc {
 		if err := c.ShouldBindJSON(&json); err != nil {
 			error.CreateJsonFormError(c, err)
 		} else {
-			user := getUser(json)
+			user := convertAdminUserToDomainUser(json)
 			user, err := a.UserUseCase.StoreUser(c, user)
 			if err != nil {
 				error.ServerErrorResponse(c, err)
@@ -64,7 +64,7 @@ func (a *UserHandler) CreateUser() gin.HandlerFunc {
 	}
 }
 
-func getUser(data UserAdminForm) *domain.User {
+func convertAdminUserToDomainUser(data UserAdminForm) *domain.User {
 	user := &domain.User{
 		Name:         &data.Name,
 		Email:        &data.Email,
